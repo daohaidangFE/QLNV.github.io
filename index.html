@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý nhân viên</title>
+</head>
+<body>
+    <h1>Quản lý nhân viên</h1>
+    <label for="employeeCount">Nhập số lượng nhân viên:</label>
+    <input type="number" id="employeeCount">
+    <button onclick="createEmployees()">Tạo danh sách nhân viên</button>
+
+    <div id="employeeList"></div>
+
+    <script>
+        class Employee {
+            constructor(id, name, dob, department, salaryCoefficient) {
+            this.id = id;
+            this.name = name;
+            this.dob = dob;
+            this.department = department;
+            this.salaryCoefficient = salaryCoefficient;
+    }
+
+    // Method cập nhật thông tin nhân viên
+    updateInfo(name, dob, department, salaryCoefficient) {
+        this.name = name;
+        this.dob = dob;
+        this.department = department;
+        this.salaryCoefficient = salaryCoefficient;
+    }
+
+    // Method hiển thị thông tin nhân viên
+    displayInfo() {
+        return `ID: ${this.id}, Name: ${this.name}, Date of Birth: ${this.dob}, Department: ${this.department}, Salary Coefficient: ${this.salaryCoefficient}`;
+    }
+}
+let employees = [];
+
+function createEmployees() {
+    const employeeCount = parseInt(document.getElementById("employeeCount").value);
+
+    for (let i = 0; i < employeeCount; i++) {
+        const id = i + 1;
+        const name = prompt(`Nhập tên của nhân viên ${id}:`);
+        const dob = prompt(`Nhập ngày tháng năm sinh của nhân viên ${id} (DD/MM/YYYY):`);
+        const department = prompt(`Nhập phòng ban của nhân viên ${id}:`);
+        const salaryCoefficient = parseFloat(prompt(`Nhập hệ số lương của nhân viên ${id}:`));
+
+        const employee = new Employee(id, name, dob, department, salaryCoefficient);
+        employees.push(employee);
+    }
+
+    displayEmployees();
+}
+
+function displayEmployees() {
+    const employeeListDiv = document.getElementById("employeeList");
+    employeeListDiv.innerHTML = "<h2>Danh sách nhân viên:</h2>";
+
+    employees.forEach(employee => {
+        const p = document.createElement("p");
+        p.textContent = employee.displayInfo();
+        employeeListDiv.appendChild(p);
+    });
+}
+    </script>
+</body>
+</html>
